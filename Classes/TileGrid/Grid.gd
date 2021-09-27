@@ -1,6 +1,10 @@
 extends Node2D
 class_name TileGrid
 
+signal won()
+signal click()
+signal randomized(n)
+
 export var width : int = 16
 export var height : int = 16
 
@@ -11,6 +15,15 @@ var tiles := []
 func _ready():
 	create_tile_array()
 	position_tiles()
+	randomize_layout(10)
+
+func _on_TileGrid_won():
+	#column dance
+	for p in range(10):
+		for i in range(width):
+			for j in range(height):
+					tiles[i][j].toggle()
+		yield(get_tree().create_timer(1.0), "timeout")
 
 
 func empty_2d_array(width, height):
@@ -44,6 +57,8 @@ func create_tile_array():
 	for i in range(width):
 		for j in range(height):
 			var tile = tile_scene.instance()
+			tile.connect("clicked", self, "cross_press")
+			tile.set_index(i,j)
 			add_child(tile)
 			array[i][j] = tile
 	
@@ -61,3 +76,45 @@ func position_tiles():
 			var tilePosition = Vector2(tileHeight*i, tileWidth*j)
 			tiles[i][j].position = tilePosition
 
+
+func toggle_tile(x,y):
+	tiles[x][y].call("toggle")
+
+
+func cross_press(loc):
+	emit_signal("click")
+	var x = loc.x
+	var y = loc.y
+	
+	toggle_tile(x,y)
+	
+	if x > 0:
+		toggle_tile(x - 1, y)
+	if x < width - 1:
+		toggle_tile(x + 1, y)
+	if y > 0:
+		toggle_tile(x, y - 1)
+	if y < height - 1:
+		toggle_tile(x, y + 1)
+	
+	if is_all_off():
+		emit_signal("won")
+
+
+func is_all_off():
+	for i in range(width):
+		for j in range(height):
+			if tiles[i][j].is_on:
+				return false
+	return true
+
+func randomize_layout(num_toggles:int):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	for i in range(num_toggles):
+		var rand_row = rng.randi_range(0, height-1)
+		var rand_col = rng.randi_range(0, width-1)
+		toggle_tile(rand_col, rand_row)
+	
+	emit_signal("randomized",num_toggles)

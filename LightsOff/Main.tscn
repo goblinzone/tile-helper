@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Classes/TileGrid/Grid.gd" type="Script" id=1]
+[ext_resource path="res://LightsOff/GUI/Lato-Black.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://LightsOff/LightsOffTile/LightsOffTile.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LightsOff/GUI/Par Number.gd" type="Script" id=4]
+[ext_resource path="res://LightsOff/GUI/Score Number.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+font_data = ExtResource( 2 )
+
+[node name="Main" type="Node2D"]
+
+[node name="TileGrid" type="Node2D" parent="."]
+position = Vector2( 95.5816, 88.4354 )
+script = ExtResource( 1 )
+width = 5
+height = 5
+tile_scene = ExtResource( 3 )
+
+[node name="Score Label" type="Label" parent="."]
+margin_left = 715.522
+margin_top = 334.982
+margin_right = 897.522
+margin_bottom = 412.982
+rect_pivot_offset = Vector2( -1184.01, -255.669 )
+custom_fonts/font = SubResource( 1 )
+text = "Clicks:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score Number" type="Label" parent="."]
+margin_left = 716.415
+margin_top = 408.232
+margin_right = 898.415
+margin_bottom = 486.232
+rect_pivot_offset = Vector2( -1184.01, -255.669 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Par Number" type="Label" parent="."]
+margin_left = 719.989
+margin_top = 185.803
+margin_right = 901.989
+margin_bottom = 263.803
+rect_pivot_offset = Vector2( -1184.01, -255.669 )
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+valign = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Par Label" type="Label" parent="."]
+margin_left = 722.669
+margin_top = 119.7
+margin_right = 904.669
+margin_bottom = 197.7
+custom_fonts/font = SubResource( 1 )
+text = "Par:"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="click" from="TileGrid" to="Score Number" method="_on_TileGrid_click"]
+[connection signal="randomized" from="TileGrid" to="Par Number" method="_on_TileGrid_randomized"]
+[connection signal="won" from="TileGrid" to="TileGrid" method="_on_TileGrid_won"]

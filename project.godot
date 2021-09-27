@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Tile",
 "language": "GDScript",
-"path": "res://Tile.gd"
+"path": "res://Classes/Tile/Tile.gd"
 }, {
 "base": "Node2D",
 "class": "TileGrid",
 "language": "GDScript",
-"path": "res://Grid.gd"
+"path": "res://Classes/TileGrid/Grid.gd"
 } ]
 _global_script_class_icons={
 "Tile": "",
@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="vampire_garden"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://LightsOff/Main.tscn"
 config/icon="res://icon.png"
 
 [physics]

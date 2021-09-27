@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Classes/Tile/Tile.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Classes/TileGrid/Grid.gd" type="Script" id=2]
+
+[node name="TileGrid" type="Node2D"]
+script = ExtResource( 2 )
+width = 8
+height = 8
+tile_scene = ExtResource( 1 )
