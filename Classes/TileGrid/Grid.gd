@@ -118,3 +118,15 @@ func randomize_layout(num_toggles:int):
 		toggle_tile(rand_col, rand_row)
 	
 	emit_signal("randomized",num_toggles)
+
+func reset(num_toggles:int):
+	clear()
+	randomize_layout(num_toggles)
+
+func clear():
+	for i in range(width):
+		for j in range(height):
+			tiles[i][j].call("turn_off")
+
+func _on_Reset_Button_reset():
+	reset(10)

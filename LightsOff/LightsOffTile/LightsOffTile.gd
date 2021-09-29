@@ -13,9 +13,9 @@ func toggle():
 	emit_signal("toggle",is_on)
 
 
-func is_this(position):
-	return position == index
-
+func turn_off():
+	is_on = false
+	emit_signal("toggle",is_on)
 
 func is_adjacent(position):
 	var x_adjacent = abs(position.x - index.x) == 1
